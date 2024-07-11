@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguidores de Influencers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .influencer-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .influencer-card h2 {
+            margin-top: 0;
+        }
+        .followers-list {
+            list-style: none;
+            padding: 0;
+        }
+        .followers-list li {
+            margin: 5px 0;
+        }
+        .total-followers {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seguidores de Influencers</h1>
+    <div class="influencer-card" id="influencer1">
+        <h2>Influencer 1</h2>
+        <ul class="followers-list">
+            <li>Twitch: <span id="twitch-followers-1">Cargando...</span></li>
+            <li>TikTok: <span id="tiktok-followers-1">Cargando...</span></li>
+            <li>Instagram: <span id="instagram-followers-1">Cargando...</span></li>
+            <li>YouTube: <span id="youtube-followers-1">Cargando...</span></li>
+        </ul>
+        <div class="total-followers">Total: <span id="total-followers-1">Cargando...</span></div>
+    </div>
+
+    <script>
+        async function getFollowers() {
+            try {
+                const response = await fetch('https://api.example.com/followers?user=username'); // Cambia a la URL de tu API o servicio de scraping
+                const data = await response.json();
+
+                const twitchFollowers = data.twitch_followers;
+                const tiktokFollowers = data.tiktok_followers;
+                const instagramFollowers = data.instagram_followers;
+                const youtubeFollowers = data.youtube_followers;
+
+                document.getElementById('twitch-followers-1').textContent = twitchFollowers;
+                document.getElementById('tiktok-followers-1').textContent = tiktokFollowers;
+                document.getElementById('instagram-followers-1').textContent = instagramFollowers;
+                document.getElementById('youtube-followers-1').textContent = youtubeFollowers;
+
+                const totalFollowers = twitchFollowers + tiktokFollowers + instagramFollowers + youtubeFollowers;
+                document.getElementById('total-followers-1').textContent = totalFollowers;
+            } catch (error) {
+                console.error('Error obteniendo seguidores:', error);
+            }
+        }
+
+        getFollowers();
+    </script>
+</body>
+</html>
